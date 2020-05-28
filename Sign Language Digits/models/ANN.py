@@ -1,6 +1,5 @@
 import numpy as np
 
-
 def gradient(params_ns, inputSize, hiddenSize, numLabel, x, y, lam):
     theta1 = params_ns[:((inputSize + 1) * hiddenSize)].reshape(hiddenSize, inputSize + 1)
     theta2 = params_ns[((inputSize + 1) * hiddenSize):].reshape(numLabel, hiddenSize + 1)
