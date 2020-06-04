@@ -1,6 +1,7 @@
 import numpy as np
 
-def gradient(params_ns, inputSize, hiddenSize, numLabel, x, y, lam):
+
+def backwardPropagation(params_ns, inputSize, hiddenSize, numLabel, x, y, lam):
     theta1 = params_ns[:((inputSize + 1) * hiddenSize)].reshape(hiddenSize, inputSize + 1)
     theta2 = params_ns[((inputSize + 1) * hiddenSize):].reshape(numLabel, hiddenSize + 1)
 
@@ -35,11 +36,13 @@ def gradient(params_ns, inputSize, hiddenSize, numLabel, x, y, lam):
     return jVal, jVaGrad, delta1, delta2, delta1Reg, delta2Reg
 
 
+'''
+    explain forward propagation
+    
+'''
 def forwardPropagation(x, theta1, theta2):
     # First Input Layer: Activation a(1)
-    X = np.ones(shape=(x.shape[0], x.shape[1] + 1))
-    X[:, 1:] = x
-    a1 = X
+    a1 = x
     # Second Input Layer
     # theta1: shape (25, 401)
     # a1: shape (5000, 401)
