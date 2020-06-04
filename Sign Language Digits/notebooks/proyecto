@@ -1,13 +1,15 @@
-URL:
+URL: https://www.kaggle.com/ardamavi/sign-language-digits-dataset
 
-https://www.kaggle.com/ardamavi/sign-language-digits-dataset
-
-tam Im:  64 x 64
-
-Proyecto
+Project
 * Multi-Class regression
+    84 %  probability
+    72,6 % probability with sklearn
+    ->Percentage of prediction
+    ->Better Label on y
 
 * Artificial Neural Network
+
+* Convolution Neural Network with TensorFlow
 
 
 
