@@ -16,6 +16,7 @@ def readFile():
     y = np.load('data/Sign-language-digits-dataset/Y.npy')
     return x, y
 
+
 '''
 3D -> 2D
 '''
@@ -24,6 +25,8 @@ def flatten(x):
     areaPixel = x.shape[1] * x.shape[2]
     xTrainFlatten = x.reshape(size, areaPixel)
     return xTrainFlatten
+
+
 '''
 We separate the test data from the train data, because we want to 
 know if the model understands the
@@ -89,16 +92,3 @@ def randomWeight(Lin, Lout, e=0.12):
 
 
 '''
-def correctingLabel(y):
-    y_new = []
-    for target in y:
-        y_new.append(np.argmax(target))
-    y = np.array(y_new)
-
-    label_map = {0: 9, 1: 0, 2: 7, 3: 6, 4: 1, 5: 8, 6: 4, 7: 3, 8: 2, 9: 5}
-    y_new = list()
-    for s in y:
-        y_new.append(label_map[s])
-    y = np.array(y_new)
-
-    return y
