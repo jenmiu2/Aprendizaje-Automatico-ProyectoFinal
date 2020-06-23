@@ -2,14 +2,12 @@ URL: https://www.kaggle.com/ardamavi/sign-language-digits-dataset
 
 Project
 * Multi-Class regression
-    84 %  probability
-    72,6 % probability with sklearn
-    ->Percentage of prediction
-    ->Better Label on y
-
+    cost value = 0.69
+    train percentage =
+    test percentage = 
 * Artificial Neural Network
 
-* Convolution Neural Network with TensorFlow
+* Convolution Neural Network with Keras
 
 
 

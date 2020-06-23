@@ -2,6 +2,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 import math as mt
 
+
 '''
 This function read the files adding to x the columns of ones 
     :param none
@@ -88,7 +89,15 @@ def randomWeight(Lin, Lout, e=0.12):
     matrix = matrix - e
     return matrix
 
+
+'''
+We need to create an array with the values on number instead of on-hot format.
+
 '''
 
 
-'''
+def createLabel(y):
+    y_new = [np.argmax(target) for target in y]
+    array = np.array(y_new)
+    return array
+
