@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f0000132-4ba2-4123-b37f-12f3f4773073" name="Default Changelist" comment="" />
+    <list default="true" id="f0000132-4ba2-4123-b37f-12f3f4773073" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sign Language Digits/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Sign Language Digits/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sign Language Digits/models/processData.py" beforeDir="false" afterPath="$PROJECT_DIR$/Sign Language Digits/models/processData.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,8 +24,56 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Sign Language Digits" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Sign-Language-Digits" type="PythonConfigurationType" factoryName="Python">
+      <module name="AA-PFinal" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\jmu2\anaconda3\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Sign Language Digits" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Sign Language Digits/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="AA-PFinal" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\jmu2\anaconda3\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -33,10 +86,72 @@
       <option name="presentableId" value="Default" />
       <updated>1591276429660</updated>
       <workItem from="1591276459746" duration="24000" />
+      <workItem from="1591714351679" duration="679000" />
+      <workItem from="1591715454193" duration="1086000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="223" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591714676624">
+      <screen x="0" y="40" width="1536" height="824" />
+    </state>
+    <state x="223" y="107" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.40.1536.824@0.40.1536.824" timestamp="1591714676624" />
+    <state x="548" y="207" key="FileChooserDialogImpl" timestamp="1591716433317">
+      <screen x="0" y="40" width="1536" height="824" />
+    </state>
+    <state x="548" y="207" key="FileChooserDialogImpl/0.40.1536.824@0.40.1536.824" timestamp="1591716433317" />
+    <state width="746" height="393" key="GridCell.Tab.0.bottom" timestamp="1591716748002">
+      <screen x="0" y="40" width="1536" height="824" />
+    </state>
+    <state width="746" height="393" key="GridCell.Tab.0.bottom/0.40.1536.824@0.40.1536.824" timestamp="1591716748002" />
+    <state width="746" height="393" key="GridCell.Tab.0.center" timestamp="1591716748002">
+      <screen x="0" y="40" width="1536" height="824" />
+    </state>
+    <state width="746" height="393" key="GridCell.Tab.0.center/0.40.1536.824@0.40.1536.824" timestamp="1591716748002" />
+    <state width="746" height="393" key="GridCell.Tab.0.left" timestamp="1591716748002">
+      <screen x="0" y="40" width="1536" height="824" />
+    </state>
+    <state width="746" height="393" key="GridCell.Tab.0.left/0.40.1536.824@0.40.1536.824" timestamp="1591716748002" />
+    <state width="746" height="393" key="GridCell.Tab.0.right" timestamp="1591716748002">
+      <screen x="0" y="40" width="1536" height="824" />
+    </state>
+    <state width="746" height="393" key="GridCell.Tab.0.right/0.40.1536.824@0.40.1536.824" timestamp="1591716748002" />
+    <state width="746" height="393" key="GridCell.Tab.1.bottom" timestamp="1591716748003">
+      <screen x="0" y="40" width="1536" height="824" />
+    </state>
+    <state width="746" height="393" key="GridCell.Tab.1.bottom/0.40.1536.824@0.40.1536.824" timestamp="1591716748003" />
+    <state width="746" height="393" key="GridCell.Tab.1.center" timestamp="1591716748002">
+      <screen x="0" y="40" width="1536" height="824" />
+    </state>
+    <state width="746" height="393" key="GridCell.Tab.1.center/0.40.1536.824@0.40.1536.824" timestamp="1591716748002" />
+    <state width="746" height="393" key="GridCell.Tab.1.left" timestamp="1591716748002">
+      <screen x="0" y="40" width="1536" height="824" />
+    </state>
+    <state width="746" height="393" key="GridCell.Tab.1.left/0.40.1536.824@0.40.1536.824" timestamp="1591716748002" />
+    <state width="746" height="393" key="GridCell.Tab.1.right" timestamp="1591716748003">
+      <screen x="0" y="40" width="1536" height="824" />
+    </state>
+    <state width="746" height="393" key="GridCell.Tab.1.right/0.40.1536.824@0.40.1536.824" timestamp="1591716748003" />
+    <state x="277" y="97" key="SettingsEditor" timestamp="1591716041408">
+      <screen x="0" y="40" width="1536" height="824" />
+    </state>
+    <state x="277" y="97" key="SettingsEditor/0.40.1536.824@0.40.1536.824" timestamp="1591716041408" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Sign Language Digits/main.py</url>
+          <line>7</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/AA_PFinal$Sign_Language_Digits.coverage" NAME="Sign-Language-Digits Coverage Results" MODIFIED="1591716389435" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Sign Language Digits" />
   </component>
 </project>

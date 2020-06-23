@@ -17,4 +17,4 @@ def showImages(images, label, figsize=10, tamGrid=5):
         plt.grid(False)
         plt.imshow(images[i], cmap=plt.cm.binary)
         plt.xlabel("Sign: {}".format(label[i]))
-    plt.savefig('Img.png')
+    plt.savefig('image\imgGrid.png')

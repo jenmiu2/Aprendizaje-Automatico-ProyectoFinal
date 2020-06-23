@@ -1,7 +1,9 @@
 import numpy as np
 from sklearn.model_selection import train_test_split
 import math as mt
+import warnings
 
+warnings.filterwarnings(action='ignore')
 
 '''
 This function read the files adding to x the columns of ones 

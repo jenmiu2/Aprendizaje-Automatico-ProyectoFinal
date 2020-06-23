@@ -4,7 +4,7 @@ Project
 * Multi-Class regression
     cost value = 0.69
     train percentage =
-    test percentage = 
+    test percentage =
 * Artificial Neural Network
 
 * Convolution Neural Network with Keras
