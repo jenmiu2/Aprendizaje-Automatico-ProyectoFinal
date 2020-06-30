@@ -1,4 +1,6 @@
 import numpy as np
+from models import utils
+from scipy.optimize import minimize
 
 
 def backwardPropagation(params_ns, inputSize, hiddenSize, numLabel, x, y, lam):
@@ -40,25 +42,19 @@ def backwardPropagation(params_ns, inputSize, hiddenSize, numLabel, x, y, lam):
     explain forward propagation
     
 '''
+
+
 def forwardPropagation(x, theta1, theta2):
     # First Input Layer: Activation a(1)
     a1 = x
-    # Second Input Layer
-    # theta1: shape (25, 401)
-    # a1: shape (5000, 401)
-    # a2: shape (5000, 25)
     z2 = a1 @ theta1.T
-    a2 = sig_function(z2)
+    a2 = utils.sig_function(z2)
 
-    # aux2: shape (5000, 26) adding one column of one´s to a2
     aux2 = np.ones(shape=(a2.shape[0], a2.shape[1] + 1))
     aux2[:, 1:] = a2
 
-    # Third Input Layer
-    # theta2: shape (10, 26)
-    # a3: shape (5000, 26)
     a3 = aux2 @ theta2.T
-    h = sig_function(a3)
+    h = utils.sig_function(a3)
 
     return a1, z2, aux2, a3, h
 
@@ -85,11 +81,11 @@ def cost_function(theta1, theta2, x, y, a, lam=1):
     return J, reg_cost
 
 
-def sig_dev_function(x):
-    s = 1 / (1 + np.exp(-x))
-    return s * (1 - s)
-
-
-def sig_function(x):
-    s = 1 / (1 + np.exp(-x))
-    return s
+def backPropagationLearning(x, y, params_ns, hiddenSize, numLabel, inputSize, lam=1):
+    fmin = minimize(fun=backwardPropagation,
+                    x0=params_ns,
+                    args=(x, y, lam),
+                    method='TNC',
+                    jac=True,
+                    options={'maxiter': 200})
+    return fmin
