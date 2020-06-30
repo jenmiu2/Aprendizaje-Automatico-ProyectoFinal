@@ -21,13 +21,20 @@ def readFile():
 
 
 '''
-3D -> 2D
+ It flatten the data from 3D array into 2D
+    :param
+        x: the 3D´s array
+    :return
+        xFlatten: the x transformation into an array of 2 dimension
+    
 '''
+
+
 def flatten(x):
     size = x.shape[0]
     areaPixel = x.shape[1] * x.shape[2]
-    xTrainFlatten = x.reshape(size, areaPixel)
-    return xTrainFlatten
+    xFlatten = x.reshape(size, areaPixel)
+    return xFlatten
 
 
 '''
@@ -93,13 +100,44 @@ def randomWeight(Lin, Lout, e=0.12):
 
 
 '''
-We need to create an array with the values on number instead of on-hot format.
-
+The function create the real number of a onehot encoder type.
+    :param
+        y: label encode on one hot
+    :return
+        y_label: the transformation of the y label into real number
 '''
 
 
 def createLabel(y):
     y_new = [np.argmax(target) for target in y]
-    array = np.array(y_new)
-    return array
+    y_label = np.array(y_new)
+    return y_label
 
+
+'''
+This function read the data from the file and separate each type in Train data,
+Validation data and Test data, then flatten the X type data and finally it normalizes the pixel.
+    :param none
+    :returns
+        xTrainFinal: the training data
+        xTestFinal: the test data
+        yTrain: the training label
+        yTest: the test label
+        y: the transformation data of the y label into real number
+    
+'''
+
+
+def createValTrainTest():
+    x, y = readFile()  # shape =(2062, 64, 64), shape =(2062, 10)
+    y = createLabel(y)  # shape =(2062, )
+
+    xTrain, xTest, yTrain, yTest = createTrain_TestData(x, y)
+    #xTrain, xVal, yTrain, yVal = createTrain_TestData(x, y, grade=0.5)
+
+    xTrainFlatten = flatten(xTrain)  # grad shape =(1443, 4096)
+    xTestFlatten = flatten(xTest)  # shape =(619, 4096)
+    xTrainFinal = normalizePixel(xTrainFlatten)  # shape =(1443, 4096)
+    xTestFinal = normalizePixel(xTestFlatten)  # shape =(619, 4096)
+
+    return xTrainFinal, xTestFinal, yTrain, yTest, y
