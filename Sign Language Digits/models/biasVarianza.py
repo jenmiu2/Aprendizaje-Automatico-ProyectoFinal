@@ -1,5 +1,4 @@
 import numpy as np
-
 from models import MultiClassClassification as mccr
 
 
@@ -13,7 +12,7 @@ def findBestLambda(x, y, xVal, yVal):
         errTrain[i] = mccr.cost_function(fmin, x, y, lam=0)
         errVal[i] = mccr.cost_function(fmin, xVal, yVal, lam=0)
 
-    idx = np.argwhere(np.diff(np.sign(errTrain - errVal)) != 0).reshape(-1) + 0
+    idx = np.argwhere(np.diff(np.sign(errTrain - errVal)) != 0).reshape(-1)
 
     return lams[idx]
 

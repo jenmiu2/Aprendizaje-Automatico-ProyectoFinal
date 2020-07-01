@@ -3,6 +3,8 @@ from sklearn.model_selection import train_test_split
 import math as mt
 import warnings
 
+from models import utils
+
 warnings.filterwarnings(action='ignore')
 
 '''
@@ -91,11 +93,9 @@ The weights of each layer of the neural network are initialized
 '''
 
 
-def randomWeight(Lin, Lout, e=0.12):
-    e = mt.sqrt(6) / mt.sqrt(Lin + Lout)
-    matrix = np.random.random(size=(Lout, Lin))
-    matrix = matrix * 2 * e
-    matrix = matrix - e
+def randomWeight(Lin, Lout):
+    matrix = (np.random.random(size=Lin * (Lout + 1) +
+                                    utils.numLabel * (Lin + 1)) - 0.5) * 0.25
     return matrix
 
 
@@ -129,15 +129,15 @@ Validation data and Test data, then flatten the X type data and finally it norma
 
 
 def createValTrainTest():
-    x, y = readFile()  # shape =(2062, 64, 64), shape =(2062, 10)
-    y = createLabel(y)  # shape =(2062, )
+    x, y_hot = readFile()  # shape =(2062, 64, 64), shape =(2062, 10)
+    y = createLabel(y_hot)  # shape =(2062, )
 
     xTrain, xTest, yTrain, yTest = createTrain_TestData(x, y)
-    #xTrain, xVal, yTrain, yVal = createTrain_TestData(x, y, grade=0.5)
+    # xTrain, xVal, yTrain, yVal = createTrain_TestData(x, y, grade=0.5)
 
     xTrainFlatten = flatten(xTrain)  # grad shape =(1443, 4096)
     xTestFlatten = flatten(xTest)  # shape =(619, 4096)
     xTrainFinal = normalizePixel(xTrainFlatten)  # shape =(1443, 4096)
     xTestFinal = normalizePixel(xTestFlatten)  # shape =(619, 4096)
 
-    return xTrainFinal, xTestFinal, yTrain, yTest, y
+    return xTrainFinal, xTestFinal, yTrain, yTest, y_hot

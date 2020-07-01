@@ -2,6 +2,11 @@ import numpy as np
 from models import utils
 from scipy.optimize import minimize
 
+'''
+Saving the cost while applying the mineralization function
+
+'''
+cost_history = []
 
 def backwardPropagation(params_ns, inputSize, hiddenSize, numLabel, x, y, lam):
     theta1 = params_ns[:((inputSize + 1) * hiddenSize)].reshape(hiddenSize, inputSize + 1)
@@ -32,10 +37,12 @@ def backwardPropagation(params_ns, inputSize, hiddenSize, numLabel, x, y, lam):
     delta1Reg = delta1 + (lam / m) * np.hstack((np.zeros((theta1.shape[0], 1)), theta1[:, 1:]))
     delta2Reg = delta2 + (lam / m) * np.hstack((np.zeros((theta2.shape[0], 1)), theta2[:, 1:]))
 
+    deltaVec = np.concatenate((delta1Reg.ravel(), delta2Reg.ravel()))
     # Calculate Cost
-    jVal, jVaGrad = cost_function(theta1=theta1, theta2=theta2, x=x, y=y, a=h)
 
-    return jVal, jVaGrad, delta1, delta2, delta1Reg, delta2Reg
+    reg_cost = cost_function(theta1=theta1, theta2=theta2, x=x, y=y, a=h)
+
+    return reg_cost, deltaVec
 
 
 '''
@@ -46,46 +53,37 @@ def backwardPropagation(params_ns, inputSize, hiddenSize, numLabel, x, y, lam):
 
 def forwardPropagation(x, theta1, theta2):
     # First Input Layer: Activation a(1)
-    a1 = x
-    z2 = a1 @ theta1.T
-    a2 = utils.sig_function(z2)
+    X = np.ones(shape=(x.shape[0], x.shape[1] + 1))
+    X[:, 1:] = x
+
+    a1 = X  # <a1_shape>=(1443, 4096)
+    z2 = a1 @ theta1.T  # <z3_shape>=(63, 4096)
+    a2 = utils.sig_function(z2)  # <a2_shape>=(63, 4096)
 
     aux2 = np.ones(shape=(a2.shape[0], a2.shape[1] + 1))
     aux2[:, 1:] = a2
 
-    a3 = aux2 @ theta2.T
-    h = utils.sig_function(a3)
+    a3 = aux2 @ theta2.T  # <a3_shape>=(10, 4096)
+    h = utils.sig_function(a3)  # <h_shape>=(10, 4096)
 
     return a1, z2, aux2, a3, h
 
 
 def cost_function(theta1, theta2, x, y, a, lam=1):
-    X = np.ones(shape=(x.shape[0], x.shape[1] + 1))
-    X[:, 1:] = x
-    m = X.shape[0]
-    K = 10
-    y_aux = np.zeros((m, K))
-    cost = 0
+    m = x.shape[0]
 
-    for i in range(1, K + 1):
-        y_aux[:, i - 1][:, np.newaxis] = np.where(y == i, 1, 0)
-
-    for i in range(0, K):
-        label = y_aux[:, i]
-        aux = a[:, i]
-        error = -label * np.log(aux) - ((1 - label) * np.log(1 - aux))
-        cost = cost + sum(error)
-
-    J = 1 / m * cost
+    J = (-1 / m) * np.sum((np.log(a) @ y.T) + np.log(1 - a) @ (1 - y.T))
     reg_cost = J + lam / (2 * m) * (np.sum(theta1[:, 1:] ** 2) + np.sum(theta2[:, 1:] ** 2))
-    return J, reg_cost
+
+    cost_history.append(reg_cost)
+    return reg_cost
 
 
 def backPropagationLearning(x, y, params_ns, hiddenSize, numLabel, inputSize, lam=1):
     fmin = minimize(fun=backwardPropagation,
                     x0=params_ns,
-                    args=(x, y, lam),
-                    method='TNC',
+                    args=(inputSize, hiddenSize, numLabel, x, y, lam),
+                    method='L-BFGS-B',
                     jac=True,
-                    options={'maxiter': 200})
+                    )
     return fmin
