@@ -18,8 +18,9 @@ data, then we apply the oneVsAll to create the theta´s os each x and y
 
 
 def applyMultipleRegressionClass(xTrain, xTest, yTrain, yTest, lam=0.1):
-    reg = MultiClassClassification.apply(xTrain, yTrain)
-    print(reg)
+
+
+    reg = MultiClassClassification.apply(xTrain, yTrain, lam=lam)
     cost_history = MultiClassClassification.cost_history
     print(np.min(cost_history))
 
@@ -27,8 +28,8 @@ def applyMultipleRegressionClass(xTrain, xTest, yTrain, yTest, lam=0.1):
     predTrain = MultiClassClassification.predOneVsAll(reg, xTrain)
 
     print("Probability Test: {}%\r\nProbability Train: {}%\r\n "
-          .format(np.mean(predTest == yTest) * 100,
-                  np.mean(predTrain == yTrain) * 100))
+          .format(np.mean(np.abs(predTest - yTest)) * 100 - 100,
+                  np.mean(np.abs(predTrain - yTrain)) * 100 - 100))
 
     return cost_history, reg
 
@@ -41,29 +42,29 @@ def applyCNN(xTrain, xTest, xVal, yTrain, yTest, yVal):
 
 
 def applyANN(xTrain, xTest, yTrain, yTest, lam=0.1):
-    inputSizeTrain = xTrain.shape[1] # 1443
+    inputSizeTrain = xTrain.shape[1]  # 1443
     hiddenSize = 63  # random
 
     params_ns = processData.randomWeight(hiddenSize, inputSizeTrain)
     fmin = ANN.backPropagationLearning(xTrain, yTrain, params_ns, hiddenSize, utils.numLabel, inputSizeTrain)
-
+    print(fmin)
     theta1 = params_ns[:((inputSizeTrain + 1) * hiddenSize)].reshape(hiddenSize, inputSizeTrain + 1)
     theta2 = params_ns[((inputSizeTrain + 1) * hiddenSize):].reshape(utils.numLabel, hiddenSize + 1)
 
     cost_history = ANN.cost_history
-
+    print(cost_history)
     a1, z2, aux2, a3, predTest = ANN.forwardPropagation(xTest, theta1, theta2)
     a1, z2, aux2, a3, predTrain = ANN.forwardPropagation(xTrain, theta1, theta2)
 
-    print("Probability Test: { .4f}%\r\nProbability Train: {.4f}%\r\n "
-          .format(np.mean(predTest.argmax(axis=1) == yTest) * 100,
-                  np.mean(predTrain.argmax(axis=1) == yTrain) * 100))
+    print("Probability Test: {}%\r\nProbability Train: {}%\r\n "
+          .format(np.mean(np.abs(predTest - yTest)) * 100 - 100,
+                  np.mean(np.abs(predTrain - yTrain)) * 100 - 100))
     return cost_history, fmin
 
 
-def selectBestAlgorithm():
+def selectBestAlgorithm(lam):
     xTrain, xTest, yTrain, yTest, y = processData.createValTrainTest()
-    lam = bv.findBestLambda(xTrain, yTrain)
+
 
     # MCLR
     cost_historyMCLR, predMCLR = applyMultipleRegressionClass(xTrain, xTest, yTrain, yTest, lam)
@@ -75,5 +76,13 @@ def selectBestAlgorithm():
     cost_historyCNN, predCNN = applyCNN(xTrain, xTest, yTrain, yTest)
 
 
-xTrain, xTest, yTrain, yTest, y = processData.createValTrainTest()
-cost_history, fmin = applyANN(xTrain, xTest, y, yTest)
+xTrain, xVal, xTest, yTrain, yVal, yTest = processData.createValTrainTest(val=True)
+print("Iniciando la busqueda del mejor lambda...")
+#bv.findBestLambda(xTrain, yTrain, xVal, yVal)
+lam = 0.3
+print("Entrenamiento con lam = {}...".format(lam))
+#bv.learningCurve(xTrain, yTrain, xVal, yVal, lam=lam)
+#print("Multi Reg class con lam = {}...".format(lam))
+xTrain, xTest, yTrain, yTest = processData.createValTrainTest()
+#applyMultipleRegressionClass(xTrain, xTest, yTrain, yTest, lam=lam)
+applyANN(xTrain, xTest, yTrain, yTest, lam)

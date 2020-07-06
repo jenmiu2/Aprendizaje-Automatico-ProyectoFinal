@@ -74,7 +74,7 @@ row of all_theta corresponds to the classifier for label i.
 '''
 
 
-def apply(x, y, lam=1):
+def apply(x, y, lam=0.03):
 
     Lout = x.shape[1]
     reg = np.zeros(shape=(utils.numLabel, Lout))
@@ -102,7 +102,7 @@ Run minimize to obtain the optimal theta, each numLabel is compared to the y lab
 
 def oneVsAll(x, y, numLabel, theta, lam):
     label = (y == numLabel).astype(int)
-    reg = opt.fmin_tnc(func=cost_function, x0=theta, fprime=grad_function, args=(x, label, lam))
+    reg = opt.fmin_l_bfgs_b(func=cost_function, x0=theta, fprime=grad_function, args=(x, label, lam))
     return reg[0]
 
 
@@ -120,6 +120,6 @@ Predicts for each example of x.
 
 
 def predOneVsAll(theta, x):
-    prediction = utils.sig_function(theta @ x.T)
+    prediction = utils.sig_function(x @ theta.T)
     prediction2 = np.argmax(prediction, axis=1)
     return prediction2

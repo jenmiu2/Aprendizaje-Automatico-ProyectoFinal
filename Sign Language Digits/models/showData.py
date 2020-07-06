@@ -45,11 +45,11 @@ def showGraph(history, score, epochs, fase):
 '''
 errTraing frente a errVal
 '''
-def parte2(errTrain, errVal, m, fig):
+def parte2(errTrain, errVal, m,):
     plt.plot(np.arange(1, m + 1), errTrain, label="Train")
     plt.plot(np.arange(1, m + 1), errVal, label="Validation")
     plt.show()
-    plt.savefig('image/fig2-{}.png'.format(fig), dpi=300)
+    plt.savefig('image/MCC/fig2-1.png')
 
 '''
 
@@ -62,4 +62,4 @@ def parte3_2(errTrain, errVal, lam):
     plt.plot(lam, errVal, '-o', label="Validation")
     plt.legend()
     plt.show()
-    plt.savefig('image/fig3-2.png', dpi=300)
+    plt.savefig('image/MCC/fig3-2.png')

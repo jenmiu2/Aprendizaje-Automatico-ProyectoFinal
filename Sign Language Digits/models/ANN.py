@@ -8,15 +8,13 @@ Saving the cost while applying the mineralization function
 '''
 cost_history = []
 
+
 def backwardPropagation(params_ns, inputSize, hiddenSize, numLabel, x, y, lam):
     theta1 = params_ns[:((inputSize + 1) * hiddenSize)].reshape(hiddenSize, inputSize + 1)
     theta2 = params_ns[((inputSize + 1) * hiddenSize):].reshape(numLabel, hiddenSize + 1)
 
     delta1 = np.zeros(theta1.shape)
     delta2 = np.zeros(theta2.shape)
-
-    X = np.ones(shape=(x.shape[0], x.shape[1] + 1))
-    X[:, 1:] = x
 
     m = x.shape[0]
 
@@ -72,7 +70,7 @@ def forwardPropagation(x, theta1, theta2):
 def cost_function(theta1, theta2, x, y, a, lam=1):
     m = x.shape[0]
 
-    J = (-1 / m) * np.sum((np.log(a) @ y.T) + np.log(1 - a) @ (1 - y.T))
+    J = (-1 / m) * np.sum((y @ np.log(a)) + (1 - y) @ np.log(1 - a))
     reg_cost = J + lam / (2 * m) * (np.sum(theta1[:, 1:] ** 2) + np.sum(theta2[:, 1:] ** 2))
 
     cost_history.append(reg_cost)
@@ -84,6 +82,5 @@ def backPropagationLearning(x, y, params_ns, hiddenSize, numLabel, inputSize, la
                     x0=params_ns,
                     args=(inputSize, hiddenSize, numLabel, x, y, lam),
                     method='L-BFGS-B',
-                    jac=True,
-                    )
+                    jac=True)
     return fmin
