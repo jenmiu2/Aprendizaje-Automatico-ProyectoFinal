@@ -1,6 +1,5 @@
 import numpy as np
 from sklearn.model_selection import train_test_split
-import math as mt
 import warnings
 
 from models import utils
@@ -62,7 +61,7 @@ data and the test data will be difference.
 
 
 def createTrain_TestData(x, y, grade=0.30):
-    xTrain, xTest, yTrain, yTest = train_test_split(x, y, stratify=y, test_size=grade, random_state=1)
+    xTrain, xTest, yTrain, yTest = train_test_split(x, y, stratify=y, test_size=grade, random_state=20)
     return xTrain, xTest, yTrain, yTest
 
 
@@ -115,6 +114,22 @@ def createLabel(y):
 
 
 '''
+The function fix the label, the given order is: 9, 0, 7, 6, 1, 8, 4, 3, 2, 5
+    :param
+        y: label encode real
+    :return
+        y_label: fix labeling
+'''
+
+
+def correctLabel(y):
+    label = {0: 9, 1: 0, 2: 7, 3: 6, 4: 1, 5: 8, 6: 4, 7: 3, 8: 2, 9: 5}
+    y_new = [label[target] for target in y]
+    y_label = np.array(y_new)
+    return y_label
+
+
+'''
 This function read the data from the file and separate each type in Train data,
 Validation data and Test data, then flatten the X type data and finally it normalizes the pixel.
     :param none
@@ -128,16 +143,15 @@ Validation data and Test data, then flatten the X type data and finally it norma
 '''
 
 
-def createValTrainTest():
+def createValTrainTest(val=False):
     x, y_hot = readFile()  # shape =(2062, 64, 64), shape =(2062, 10)
+    x = flatten(x)
+    x = normalizePixel(x)
     y = createLabel(y_hot)  # shape =(2062, )
+    y_correct = correctLabel(y)
+    xTrain, xTest, yTrain, yTest = createTrain_TestData(x, y_correct)
+    if val:
+        xTrain, xVal, yTrain, yVal = createTrain_TestData(xTrain, yTrain, grade=0.15)
+        return xTrain, xVal, xTest, yTrain, yVal, yTest
 
-    xTrain, xTest, yTrain, yTest = createTrain_TestData(x, y)
-    # xTrain, xVal, yTrain, yVal = createTrain_TestData(x, y, grade=0.5)
-
-    xTrainFlatten = flatten(xTrain)  # grad shape =(1443, 4096)
-    xTestFlatten = flatten(xTest)  # shape =(619, 4096)
-    xTrainFinal = normalizePixel(xTrainFlatten)  # shape =(1443, 4096)
-    xTestFinal = normalizePixel(xTestFlatten)  # shape =(619, 4096)
-
-    return xTrainFinal, xTestFinal, yTrain, yTest, y_hot
+    return xTrain, xTest, yTrain, yTest
