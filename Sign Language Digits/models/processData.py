@@ -143,13 +143,18 @@ Validation data and Test data, then flatten the X type data and finally it norma
 '''
 
 
-def createValTrainTest(val=False):
-    x, y_hot = readFile()  # shape =(2062, 64, 64), shape =(2062, 10)
-    x = flatten(x)
-    x = normalizePixel(x)
-    y = createLabel(y_hot)  # shape =(2062, )
-    y_correct = correctLabel(y)
-    xTrain, xTest, yTrain, yTest = createTrain_TestData(x, y_correct)
+def createValTrainTest(val=False, flatNorm=True, realNumber=False):
+    x, y = readFile()  # shape =(2062, 64, 64), shape =(2062, 10)
+
+    if flatNorm:
+        x = flatten(x)
+        x = normalizePixel(x)
+    if realNumber:
+        y = createLabel(y)  # shape =(2062, )
+        y = correctLabel(y)
+
+    xTrain, xTest, yTrain, yTest = createTrain_TestData(x, y)
+
     if val:
         xTrain, xVal, yTrain, yVal = createTrain_TestData(xTrain, yTrain, grade=0.15)
         return xTrain, xVal, xTest, yTrain, yVal, yTest
