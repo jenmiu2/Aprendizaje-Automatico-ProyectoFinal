@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import seaborn as sns
+from sklearn.metrics import confusion_matrix
 
 '''
 Show a grid of imagine from the dataset
@@ -32,20 +34,40 @@ Show accumulative acc and loss from CNN model
 '''
 
 
-def showGraph(history, score):
+def showGraph(history):
     plt.figure(figsize=(24, 8))
 
     plt.subplot(1, 2, 1)
-    plt.plot(history.history["val_acc"], label="Validation Accuracy", c="red", linewidth=4)
-    plt.plot(history.history["acc"], label="Accuracy", c="green", linewidth=4)
+    plt.plot(history.history["val_acc"], label="Validation Accuracy", c="orange", linewidth=4)
+    plt.plot(history.history["acc"], label="Accuracy", c="blue", linewidth=4)
     plt.legend()
 
     plt.subplot(1, 2, 1)
     plt.plot(history.history["val_loss"], label="Validation Loss", c="red", linewidth=4)
     plt.plot(history.history["loss"], label="Loss", c="green", linewidth=4)
     plt.legend()
+    plt.show()
+    plt.savefig('image/CNN/accuracy-loss.png')
 
-    plt.savefig('images/CNN/accuracy-loss.png')
+
+'''
+Show a map heat
+
+'''
+
+
+def showMapHeat(xTestPred, yTest):
+    yPred = np.argmax(xTestPred, axis=1)
+    Y_true = np.argmax(yTest, axis=1)
+
+    confusion_mtx = confusion_matrix(Y_true, yPred)
+
+    f, ax = plt.subplots(figsize=(8, 8))
+    sns.heatmap(confusion_mtx, annot=True, linewidths=0.01, cmap="BuPu", linecolor="gray", fmt='.1f', ax=ax)
+    plt.xlabel("Predicted Label")
+    plt.ylabel("True Label")
+    plt.title("Confusion Matrix")
+    plt.show()
 
 
 '''

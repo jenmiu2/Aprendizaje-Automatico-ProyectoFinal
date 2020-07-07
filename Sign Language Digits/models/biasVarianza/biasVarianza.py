@@ -29,7 +29,7 @@ def findBestLambda(x, y, xVal, yVal, lams, m, showGraph=True):
     if showGraph:
         showData.lambdaError(errTrain, errVal, lams)
     else:
-        print("Error validation: {}\n\rError Testing: {}".format(errVal, errTrain))
+        print("Error validation: {}\n\rError Testing: {}".format(np.min(errVal), np.min(errTrain)))
 
 
 '''
@@ -55,7 +55,7 @@ def learningCurve(x, y, xVal, yVal, lam):
         y_c = y[:i]
 
         fmin = ms.minGradient(theta, x_c, y_c, lam=lam)['x']
-       # showData.costGraph(ms.costHistory, len(ms.costHistory), fig=i)
+
         errTrain[i - 1] = ms.linearGradienteCost(fmin, x_c, y_c, lam=0)[0]
         errVal[i - 1] = ms.linearGradienteCost(fmin, xVal, yVal, lam=0)[0]
     showData.learningCurve(errTrain, errVal, m)

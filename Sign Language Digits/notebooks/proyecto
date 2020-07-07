@@ -851,9 +851,9 @@ Trainable params: 182,666
 Non-trainable params: 0
 _________________________________________________________________
 Train on 1298 samples, validate on 145 samples
-Train accuracy of the model:  0.9992296
-Test loss of the model:  0.6434546268044072
-Test accuracy of the model:  86.91437840461731
+Train accuracy of the model:  100.0
+Test loss of the model:  0.6287377994381168
+Test accuracy of the model:  88.69143724441528
 
 4 layer
 Model: "sequential_1"

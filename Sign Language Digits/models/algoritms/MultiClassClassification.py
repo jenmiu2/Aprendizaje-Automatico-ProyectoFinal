@@ -74,13 +74,15 @@ row of all_theta corresponds to the classifier for label i.
 '''
 
 
-def apply(x, y, lam=0.03):
-
+def apply(x, y, lam=0.03, ram=True):
     Lout = x.shape[1]
     reg = np.zeros(shape=(utils.numLabel, Lout))
 
     for i in range(0, utils.numLabel):
-        theta0 = np.zeros(shape=(Lout, 1))
+        if ram:
+            theta0 = np.random.random(size=Lout)
+        else:
+            theta0 = np.zeros(shape=(Lout, 1))
         reg[i, :] = oneVsAll(x, y, i, theta0, lam)
     return reg
 

@@ -59,8 +59,11 @@ data and the test data will be difference.
 '''
 
 
-def createTrain_TestData(x, y, grade=0.30):
-    xTrain, xTest, yTrain, yTest = train_test_split(x, y, stratify=y, test_size=grade, random_state=20)
+def createTrain_TestData(x, y, stratify=True, grade=0.30):
+    if stratify:
+        xTrain, xTest, yTrain, yTest = train_test_split(x, y, stratify=y, test_size=grade, random_state=20)
+    else:
+        xTrain, xTest, yTrain, yTest = train_test_split(x, y, test_size=grade, random_state=20)
     return xTrain, xTest, yTrain, yTest
 
 
@@ -86,14 +89,18 @@ The weights of each layer of the neural network are initialized
     :param
         Lin: number of columns
         Lout: number of rows
+        ram: decide if the initialization is going to be random or zeros
     :returns
         matrix: random matrix
 '''
 
 
-def randomWeight(Lin, Lout):
-    matrix = (np.random.random(size=Lin * (Lout + 1) +
-                                    utils.numLabel * (Lin + 1)) - 0.5) * 0.25
+def randomWeight(Lin, Lout, ram=True):
+    if ram:
+        matrix = (np.random.random(size=Lin * (Lout + 1) +
+                                        utils.numLabel * (Lin + 1)) - 0.5) * 0.25
+    else:
+        matrix = np.zeros((Lin * (Lout + 1) + utils.numLabel * (Lin + 1), 1))
     return matrix
 
 
@@ -156,7 +163,7 @@ def createValTrainTest(val=False, flatNorm=True, realNumber=False):
         y = correctLabel(y)
 
     # <shape[0] xTrain> =(1443), <shape[0] xTest> =(619) <shape[0] yTrain> =(2062), <shape[0] yTest> =(619 )
-    xTrain, xTest, yTrain, yTest = createTrain_TestData(x, y)
+    xTrain, xTest, yTrain, yTest = createTrain_TestData(x, y, stratify=flatNorm)
 
     if val:
         # <shape[0] xTrain> =(1226), <shape[0] xVal> =(217), <shape[0] yTrain> =(1226), <shape[0] yVal> =(217)
