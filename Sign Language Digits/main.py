@@ -1,9 +1,7 @@
 from models import processData
-from models import MultiClassClassification
-from models import CNN
-from models import ANN
+from models.algoritms import ANN, CNN, MultiClassClassification
 from models import utils
-from models import biasVarianza as bv
+from models.biasVarianza import biasVarianza as bv
 import numpy as np
 import warnings
 
@@ -75,15 +73,23 @@ def selectBestAlgorithm(lam):
 
 
 #xTrain, xVal, xTest, yTrain, yVal, yTest = processData.createValTrainTest(val=True, flatten=False)
-xTrain, xTest, yTrain, yTest = processData.createValTrainTest(val=False, flatNorm=False, realNumber=False)
-print("Iniciando la busqueda del mejor lambda...")
-# bv.findBestLambda(xTrain, yTrain, xVal, yVal)
+xTrain, xVal, xTest, yTrain, yVal, yTest = processData.createValTrainTest(val=True, flatNorm=True, realNumber=True)
+#print("Iniciando la busqueda del mejor lambda...")
+#bv.findBestLambda(xTrain, yTrain, xVal, yVal, lams=utils.lams, m=len(utils.lams), showGraph=True)
 lam = 0.3
+
+print("Checking error values of lambda: {}".format(lam))
+bv.findBestLambda(xVal, yVal, xTest, yTest, lams=utils.lams, m=len(utils.lams), showGraph=False)
+
 print("Entrenamiento con lam = {}...".format(lam))
-# bv.learningCurve(xTrain, yTrain, xVal, yVal, lam=lam)
+bv.learningCurve(xTrain, yTrain, xVal, yVal, lam=lam)
+
+
+
+
 # print("Multi Reg class con lam = {}...".format(lam))
 
-print("Aplicando clasificador...")
+# print("Aplicando clasificador...")
 # applyMultipleRegressionClass(xTrain, xTest, yTrain, yTest, lam=lam)
 # applyANN(xTrain, xTest, yTrain, yTest, lam)
-applyCNN(xTrain, xTest, yTrain, yTest)
+# applyCNN(xTrain, xTest, yTrain, yTest)

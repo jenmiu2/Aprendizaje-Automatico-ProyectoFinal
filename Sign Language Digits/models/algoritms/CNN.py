@@ -2,13 +2,13 @@ from tensorflow import keras
 from tensorflow.keras import layers
 from models import utils
 
-numLabel = 10
-inputShape = (64, 64, 1)
 
-def twoLayerCNN(xTrain, yTrain, xTest, yTest, epoch=15):
+
+
+def twoLayerCNN(xTrain, yTrain, xTest, yTest, epoch=100):
     model = keras.Sequential(
         [
-            keras.Input(shape=inputShape),
+            keras.Input(shape=utils.inputShape),
             layers.Conv2D(filters=32, kernel_size=(3, 3), padding="Same", activation="relu"),
             layers.MaxPooling2D(pool_size=(2, 2)),
             layers.Dropout(0.25),
@@ -16,25 +16,18 @@ def twoLayerCNN(xTrain, yTrain, xTest, yTest, epoch=15):
             layers.MaxPooling2D(pool_size=(2, 2)),
             layers.Flatten(),
             layers.Dropout(0.25),
-            layers.Dense(numLabel, activation="softmax")
+            layers.Dense(utils.numLabel, activation="softmax")
         ]
     )
-
-    model.summary()
-
-    model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
-    h = model.fit(xTrain, yTrain, epochs=epoch, validation_split=0.1)
-    score = model.evaluate(xTest, yTest, verbose=0)
-    print("Train accuracy of the model: ", h.history['acc'][-1]*100)
-    print("Test loss of the model: ", score[0])
-    print("Test accuracy of the model: ", score[1] * 100)
+    h, score = applyModel(model, xTrain, yTrain, xTest, yTest, epoch=epoch)
     return h, score
 
 
-def fourthLayerCNN(xTrain, yTrain, xTest, yTest, epoch=15):
+
+def fourthLayerCNN(xTrain, yTrain, xTest, yTest, epoch=100):
     model = keras.Sequential(
         [
-            keras.Input(shape=inputShape),
+            keras.Input(shape=utils.inputShape),
             layers.Conv2D(filters=8, kernel_size=(3, 3), padding="Same", activation="relu"),
             layers.MaxPooling2D(pool_size=(2, 2)),
             layers.Dropout(0.25),
@@ -50,16 +43,20 @@ def fourthLayerCNN(xTrain, yTrain, xTest, yTest, epoch=15):
             layers.Flatten(),
             layers.Dense(128, activation="relu"),
             layers.Dense(64, activation="relu"),
-            layers.Dense(numLabel, activation="softmax")
+            layers.Dense(utils.numLabel, activation="softmax")
         ]
     )
+    h, score = applyModel(model, xTrain, yTrain, xTest, yTest, epoch=epoch)
+    return h, score
 
+
+def applyModel(model, xTrain, xTest, yTrain, yTest, epoch=100):
     model.summary()
 
     model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
     h = model.fit(xTrain, yTrain, epochs=epoch, validation_split=0.1)
     score = model.evaluate(xTest, yTest, verbose=0)
-    print("Train accuracy of the model: ", h.history['acc'][-1]*100)
+    print("Train accuracy of the model: ", h.history['acc'][-1] * 100)
     print("Test loss of the model: ", score[0])
     print("Test accuracy of the model: ", score[1] * 100)
     return h, score

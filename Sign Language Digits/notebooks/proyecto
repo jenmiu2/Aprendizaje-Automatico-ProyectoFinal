@@ -2,18 +2,15 @@ URL: https://www.kaggle.com/ardamavi/sign-language-digits-dataset
 
 Project
 * Busca del mejor lamda
-
+lamnbda = 0.3
+Aplicación sobre los datos de testing:
+Error validation: [3.83390784 2.35774454 2.53219972 3.00965859 3.57874097 4.07887555
+ 4.33769278 4.47471692 4.52389001 4.54297093]
+Error Testing: [2.35116976e-03 1.32585029e+00 1.94304361e+00 2.64298068e+00
+ 3.28268432e+00 3.79421330e+00 4.02882735e+00 4.14088675e+00
+ 4.17935649e+00 4.19398849e+00]
 * Multi-Class regression
-   :\Users\jmu2\anaconda3\python.exe "C:\Program Files\JetBrains\PyCharm 2019.3.4\plugins\python\helpers\pydev\pydevconsole.py" --mode=client --port=50012
-import sys; print('Python %s on %s' % (sys.version, sys.platform))
-sys.path.extend(['C:\\Users\\jmu2\\Documents\\Dev\\AA-PFinal\\Sign Language Digits', 'C:/Users/jmu2/Documents/Dev/AA-PFinal/Sign Language Digits'])
-Python 3.7.6 (default, Jan  8 2020, 20:23:39) [MSC v.1916 64 bit (AMD64)]
-Type 'copyright', 'credits' or 'license' for more information
-IPython 7.12.0 -- An enhanced Interactive Python. Type '?' for help.
-PyDev console: using IPython 7.12.0
-Python 3.7.6 (default, Jan  8 2020, 20:23:39) [MSC v.1916 64 bit (AMD64)] on win32
-runfile('C:/Users/jmu2/Documents/Dev/AA-PFinal/Sign Language Digits/main.py', wdir='C:/Users/jmu2/Documents/Dev/AA-PFinal/Sign Language Digits')
-Using TensorFlow backend.
+
   NIT   NF   F                       GTG
     0    1  6.931471805599447E-01   3.11267358E+02
     1    4  2.618787293971021E-01   1.52690675E+01
@@ -904,6 +901,10 @@ Train on 1298 samples, validate on 145 samples
 Train accuracy of the model:  0.9853621
 Test loss of the model:  0.10022648658320572
 Test accuracy of the model:  97.41518497467041
+
+
+
+
 
 
 

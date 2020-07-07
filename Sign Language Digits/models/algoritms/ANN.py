@@ -38,7 +38,7 @@ def backwardPropagation(params_ns, inputSize, hiddenSize, numLabel, x, y, lam):
     deltaVec = np.concatenate((delta1Reg.ravel(), delta2Reg.ravel()))
     # Calculate Cost
 
-    reg_cost = cost_function(theta1=theta1, theta2=theta2, x=x, y=y, a=h)
+    reg_cost = cost_function(y=y, a=h)
 
     return reg_cost, deltaVec
 
@@ -67,7 +67,7 @@ def forwardPropagation(x, theta1, theta2):
     return a1, z2, aux2, a3, h
 
 
-def cost_function(theta1, theta2, x, y, a, lam=1):
+def cost_function(y, a):
     m = y.shape[0]
 
     error = y @ np.log(a)

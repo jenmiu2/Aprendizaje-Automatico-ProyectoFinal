@@ -1,8 +1,7 @@
 import numpy as np
 from sklearn.model_selection import train_test_split
-import warnings
-
 from models import utils
+import warnings
 
 warnings.filterwarnings(action='ignore')
 
@@ -99,7 +98,7 @@ def randomWeight(Lin, Lout):
 
 
 '''
-The function create the real number of a onehot encoder type.
+The function create the real number of a one-hot encoder type.
     :param
         y: label encode on one hot
     :return
@@ -114,7 +113,7 @@ def createLabel(y):
 
 
 '''
-The function fix the label, the given order is: 9, 0, 7, 6, 1, 8, 4, 3, 2, 5
+The function fix the label order, the given order is: 9, 0, 7, 6, 1, 8, 4, 3, 2, 5
     :param
         y: label encode real
     :return
@@ -132,7 +131,10 @@ def correctLabel(y):
 '''
 This function read the data from the file and separate each type in Train data,
 Validation data and Test data, then flatten the X type data and finally it normalizes the pixel.
-    :param none
+    :param 
+        val: default false, indicates if you want an extra partition for the validation data
+        flatNorm: default true, indicates if you want flatten the array and normalize the pixel
+        realNumber: default false, indicates if you want the conversion from one hot to real number
     :returns
         xTrainFinal: the training data
         xTestFinal: the test data
@@ -144,18 +146,20 @@ Validation data and Test data, then flatten the X type data and finally it norma
 
 
 def createValTrainTest(val=False, flatNorm=True, realNumber=False):
-    x, y = readFile()  # shape =(2062, 64, 64), shape =(2062, 10)
+    x, y = readFile()  # <shape x> =(2062, 64, 64), <shape y> =(2062, 10)
 
     if flatNorm:
-        x = flatten(x)
-        x = normalizePixel(x)
+        x = flatten(x)  # <shape x> =(2062, 4096)
+        x = normalizePixel(x)  # <shape x[1]> =(2062, 4096)
     if realNumber:
-        y = createLabel(y)  # shape =(2062, )
+        y = createLabel(y)  # <shape y> =(2062, )
         y = correctLabel(y)
 
+    # <shape[0] xTrain> =(1443), <shape[0] xTest> =(619) <shape[0] yTrain> =(2062), <shape[0] yTest> =(619 )
     xTrain, xTest, yTrain, yTest = createTrain_TestData(x, y)
 
     if val:
+        # <shape[0] xTrain> =(1226), <shape[0] xVal> =(217), <shape[0] yTrain> =(1226), <shape[0] yVal> =(217)
         xTrain, xVal, yTrain, yVal = createTrain_TestData(xTrain, yTrain, grade=0.15)
         return xTrain, xVal, xTest, yTrain, yVal, yTest
 

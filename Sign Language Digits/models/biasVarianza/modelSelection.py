@@ -4,7 +4,7 @@ from scipy.optimize import minimize
 costHistory = []
 
 
-def LinearGradienteCost(theta, x, y, lam=1):
+def linearGradienteCost(theta, x, y, lam=1):
     M = len(x)
     h = theta @ x.T
 
@@ -32,7 +32,7 @@ def error(theta, x, y):
 
 
 def minGradient(theta, x, y, lam):
-    fmin = minimize(fun=LinearGradienteCost,
+    fmin = minimize(fun=linearGradienteCost,
                     x0=theta,
                     args=(x, y, lam),
                     method='L-BFGS-B',
